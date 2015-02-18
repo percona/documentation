@@ -78,7 +78,7 @@ Average length of the receive queue since the last status query. When this numbe
 
 .. variable:: wsrep_local_cached_downto
 
-This variable shows the lowest sequence number in gcache. This information can be helpful with determining IST and/or SST. If the value is 18446744073709551615, then it means there are no writesets in cached in gcache (usual for a single node).
+This variable shows the lowest sequence number in gcache. This information can be helpful with determining IST and/or SST. If the value is ``0``, then it means there are no writesets in cached in gcache (usual for a single node).
 
 .. variable:: wsrep_flow_control_paused_ns
 
