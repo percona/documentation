@@ -22,6 +22,16 @@ Dynamic variables can be changed from the |MySQL| client by using the ``SET GLOB
 Index
 =====
 
+.. variable:: base_dir
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: No
+   :default: value of the :variable:`datadir`
+
+This variable specifies the data directory.
+
 .. variable:: base_host
 
    :cli: Yes
@@ -49,6 +59,18 @@ This variable sets the port on which the Galera listens for connections from oth
    :scope: Global
    :dyn: No
    :default: no
+
+This variable is used to specify if the details of the certification failures should be logged.
+
+.. variable:: debug
+   
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: Yes
+   :default: no
+
+When this variable is set to ``Yes`` it will enable debugging.
 
 .. variable:: evs.auto_evict
   
@@ -149,7 +171,7 @@ This variable is used for controlling the extra EVS info logging.
    :conf: Yes
    :scope: Global
    :dyn: Yes
-   :default: PT15S
+   :default: PT7.5S
 
 This variable defines the timeout on waiting for install message acknowledgments.
 
@@ -241,7 +263,7 @@ This variable defines the maximum number of data packets in replication at a tim
    :dyn: No
    :default: 0
 
-This variable defines the EVS protocol version. Auto eviction is enabled when this variable is set to ``1``. Default 0 for backwards compatibility.
+This variable defines the EVS protocol version. Auto eviction is enabled when this variable is set to ``1``. Default ``0`` for backwards compatibility.
 
 .. variable:: evs.view_forget_timeout
 
@@ -281,6 +303,7 @@ This variable is used to specify total size of the page storage pages to keep fo
    :dyn: No
    :default: 0
 
+This variable is used to define how much RAM system has available. **NOTE:** This parameter is for use on systems with spare memory. You should not use it otherwise, as it may lead to unexpected results.
 
 .. variable:: gcache.name
 
@@ -470,6 +493,8 @@ This variable specifies the time to wait until allowing peer declared outside of
    :dyn: No
    :default: 0
 
+This variable shows which gmcast protocol version is being used. 
+
 .. variable:: ist.recv_addr
 
    :cli: Yes
@@ -479,6 +504,16 @@ This variable specifies the time to wait until allowing peer declared outside of
    :default: value of :variable:`wsrep_node_address`
 
 This variable specifies the address on which nodes listens for Incremental State Transfer (|IST|).
+
+.. variable:: pc.announce_timeout
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: No
+   :default: PT3S
+
+Cluster joining announcements are sent every 1/2 second for this period of time or less if the other nodes are discovered.
 
 .. variable:: pc.checksum
 
@@ -548,6 +583,28 @@ When this variable is set to ``true`` the node stores the Primary Component stat
    :dyn: No
    :default: 0
 
+This status variable is used to check which pc protocol version is used.
+
+.. variable::  pc.wait_prim
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: No
+   :default: true
+
+When set to ``TRUE``, the node waits for the :variable:`pc.wait_prim_timeout` time period. Useful to bring up a non-primary component and make it primary with :variable:`pc.bootstrap`.
+
+.. variable:: pc.wait_prim_timeout
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: No
+   :default: PT30S
+
+This variable is used to specify the period of time to wait for a primary component.
+
 .. variable::  pc.weight 
 
    :cli: Yes
@@ -576,6 +633,8 @@ This variable is used to define which transport backend should be used. Currentl
    :dyn: No
    :default: 0
 
+This status variable is used to check which transport backend protocol version is used.
+
 .. variable::  repl.causal_read_timeout
 
    :cli: Yes
@@ -596,10 +655,10 @@ This variable specifies the causal read timeout.
 
 This variable is used to specify Out-Of-Order committing (which is used to improve parallel applying performance). Allowed values are:
 
- * ``0`` – BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
- * ``1`` – OOOC: allow out of order committing for all transactions
- * ``2`` – LOCAL_OOOC: allow out of order committing only for local transactions
- * ``3`` – NO_OOOC: no out of order committing is allowed (strict total order committing)
+ * ``0`` - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
+ * ``1`` - OOOC: allow out of order committing for all transactions
+ * ``2`` - LOCAL_OOOC: allow out of order committing only for local transactions
+ * ``3`` - NO_OOOC: no out of order committing is allowed (strict total order committing)
 
 .. variable::  repl.key_format 
  
@@ -616,13 +675,23 @@ This variable is used to specify the replication key format. Allowed values are:
  * ``FLAT8A`` - same as ``FLAT8`` but with annotations for debug purposes.
  * ``FLAT16A`` - same as ``FLAT16`` but with annotations for debug purposes.
 
+.. variable::  repl.max_ws_size
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: No
+   :default: 2147483647
+
+This variable is used to specify the maximum size of a write-set in bytes. This is limited to 2G.
+
 .. variable::  repl.proto_max 
 
    :cli: Yes
    :conf: Yes
    :scope: Global
    :dyn: No
-   :default: 5
+   :default: 7
 
 This variable is used to specify the highest communication protocol version to accept in the cluster. This variable is used only for debugging.
 
