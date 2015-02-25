@@ -50,6 +50,18 @@ This variable sets the port on which the Galera listens for connections from oth
    :dyn: No
    :default: no
 
+This variable is used to specify if the details of the certification failures should be logged.
+
+.. variable:: debug
+
+   :cli: Yes
+   :conf: Yes
+   :scope: Global
+   :dyn: Yes
+   :default: no
+
+When this variable is set to ``Yes`` it will enable debugging.
+
 .. variable:: evs.causal_keepalive_period
 
    :cli: Yes
@@ -238,6 +250,7 @@ This variable is used to specify total size of the page storage pages to keep fo
    :dyn: No
    :default: 0
 
+This variable is used to define how much RAM system has available. **NOTE:** This parameter is for use on systems with spare memory. You should not use it otherwise, as it may lead to unexpected results.
 
 .. variable:: gcache.name
 
@@ -437,6 +450,8 @@ This variable specifies the address on which nodes listens for Incremental State
    :dyn: No
    :default: PT3S 
 
+Cluster joining announcements are sent every 1/2 second for this period of time or less if the other nodes are discovered.
+
 .. variable:: pc.checksum
 
    :cli: Yes
@@ -567,8 +582,8 @@ This variable specifies the causal read timeout.
 
 This variable is used to specify Out-Of-Order committing (which is used to improve parallel applying performance). Allowed values are:
 
- * ``0`` – BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
- * ``1`` – OOOC: allow out of order committing for all transactions
- * ``2`` – LOCAL_OOOC: allow out of order committing only for local transactions
- * ``3`` – NO_OOOC: no out of order committing is allowed (strict total order committing)
+ * ``0`` - BYPASS: all commit order monitoring is turned off (useful for measuring performance penalty)
+ * ``1`` - OOOC: allow out of order committing for all transactions
+ * ``2`` - LOCAL_OOOC: allow out of order committing only for local transactions
+ * ``3`` - NO_OOOC: no out of order committing is allowed (strict total order committing)
 
