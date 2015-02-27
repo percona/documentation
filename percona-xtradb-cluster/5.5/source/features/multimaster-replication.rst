@@ -7,7 +7,9 @@ This is a long-waited feature and there has been growing demand for it for the l
 With |Percona XtraDB Cluster| you can write to any node, and the Cluster guarantees consistency of writes. That is, the write is either committed on all the nodes or not committed at all.
 For the simplicity, this diagram shows the use of the two-node example, but the same logic is applied with the N nodes:
 
-.. image:: ../_static/XtraDBClusterUML1.png
+.. figure:: ../_static/certificationbasedreplication.png
+
+       *Image source:* `Galera documentation - HOW CERTIFICATION-BASED REPLICATION WORKS <http://galeracluster.com/documentation-webpages/certificationbasedreplication.html#how-certification-based-replication-works>`_
 
 All queries are executed locally on the node, and there is a special handling only on *COMMIT*. When the *COMMIT* is issued, the transaction has to pass certification on all the nodes. If it does not pass, you
 will receive *ERROR* as a response on that query. After that, transaction is applied on the local node.
