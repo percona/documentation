@@ -15,11 +15,11 @@ Bugs fixed
 
  :file:`wsrep_sst_xtrabackup-v2` script was causing |innobackupex| to print a false positive stack trace into the log. Bug fixed :bug:`1407599`.
 
- |MyISAM| DDL (``CREATE/DROP``) isn't replicated any more when :variable:`wsrep-replicate-myisam` is ``OFF``. Bug fixed :bug:`1402338`.
+ |MyISAM| DDL (``CREATE/DROP``) isn't replicated any more when :variable:`wsrep_replicate_myisam` is ``OFF``. Bug fixed :bug:`1402338`.
 
  :variable:`gcache.mem_size` has been deprecated. A warning will now be generated if the variable has value different than ``0``. Bug fixed :bug:`1392408`.
 
- ``stderr`` of SST/Innobackupex is logged to syslog with appropriate tags if ``sst-syslog`` is in ``[sst]`` or ``[mysqld_safe]`` has syslog in :file:`my.cnf`. This can be overriden by setting the :variable:`sst-syslog` to ``-1`` in ``[sst]``. Bug fixed :bug:`1399134`.
+ ``stderr`` of SST/Innobackupex is logged to syslog with appropriate tags if ``sst-syslog`` is in ``[sst]`` or ``[mysqld_safe]`` has syslog in :file:`my.cnf`. This can be overridden by setting the :variable:`sst-syslog` to ``-1`` in ``[sst]``. Bug fixed :bug:`1399134`.
 
  ``clustercheck`` can now check if the node is ``PRIMARY`` or not, to allow for synced nodes which go out of ``PRIMARY`` not to take any writes/reads. Bug fixed :bug:`1403566`.
 
@@ -27,7 +27,7 @@ Bugs fixed
 
  ``socat`` utility was not properly terminated after a timeout. Bug fixed :bug:`1409710`.
 
- When started (without bootstrap), the node would hang if it couldn't find primary node. Bug fixed :bug:`1413258`.
+ When started (without bootstrap), the node would hang if it couldn't find a primary node. Bug fixed :bug:`1413258`.
 
  10 seconds timeout in :ref:`xtrabackup_sst` script was not enough for the joiner to delete existing files before it started the socat receiver on systems with big ``datadir``. Bug fixed :bug:`1413879`.
 
@@ -53,7 +53,7 @@ For those affected by crashes on donor during SST due to backup locks (:bug:`140
   [sst]
   inno-backup-opts='--no-backup-locks'
 
-option as a workaround to force ``FTWRL`` (**NOTE:** This workaround will is available only if you're using |Percona XtraBackup| 2.2.9 or newer.).
+option as a workaround to force ``FLUSH TABLES WITH READ LOCK`` (**NOTE:** This workaround will is available only if you're using |Percona XtraBackup| 2.2.9 or newer.).
 
 Help us improve quality by reporting any bugs you encounter using our `bug tracking system <https://bugs.launchpad.net/percona-xtradb-cluster/+filebug>`_. As always, thanks for your continued support of Percona!
 
