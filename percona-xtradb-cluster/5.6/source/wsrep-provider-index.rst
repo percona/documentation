@@ -297,13 +297,14 @@ This variable is used to specify total size of the page storage pages to keep fo
 
 .. variable:: gcache.mem_size
 
+   :version: Deprecated in :rn:`5.6.22-25.8`
    :cli: Yes
    :conf: Yes
    :scope: Global
    :dyn: No
    :default: 0
 
-This variable is used to define how much RAM system has available. **NOTE:** This parameter is for use on systems with spare memory. You should not use it otherwise, as it may lead to unexpected results.
+This variable is used to define how much RAM system has available. **WARNING:** This variable has been deprecated and shouldn't be used as it could cause a node to crash.
 
 .. variable:: gcache.name
 
