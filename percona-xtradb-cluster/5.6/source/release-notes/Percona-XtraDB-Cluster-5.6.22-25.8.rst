@@ -43,6 +43,14 @@ Bugs fixed
 
  SST processes are now spawned with ``fork/exec`` instead of ``posix_spawn`` to allow for better cleanup of child processes in event of non-graceful termination (``SIGKILL`` or a crash etc.). Bug fixed :bug:`1382797`.
 
+ :variable:`wsrep_local_cached_downto` would underflow when the node on which it is queried had no writesets in gcache. Bug fixed :bug:`1262179`.
+ 
+ A typo in :variable:`wsrep_provider_options` could cause an unhandled exception. Bug fixed :githubbug:`215`.
+
+ Interrupted IST would result in ``HA_ERR_KEY_NOT_FOUND`` error in subsequent IST. Bug fixed :githubbug:`210`.
+
+ ``garb`` logger was showing incorrect error message. Bug fixed :githubbug:`168`.
+
 Other bugs fixed: :bug:`1275814`. 
 
 Known Issues
