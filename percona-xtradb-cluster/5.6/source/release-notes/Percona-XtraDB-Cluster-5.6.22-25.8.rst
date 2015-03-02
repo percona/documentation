@@ -11,7 +11,7 @@ Based on `Percona Server 5.6.22-72.0 <http://www.percona.com/doc/percona-server/
 Bugs fixed 
 ==========
 
- :ref:`xtrabackup_sst` wouldn't stop when |MySQL| was ``SIGKILLed``. This would prevent |MySQL| to initiate a new transfer as port 4444 was already utilized. Bug fixed :bug:`1380697`.
+ :ref:`XtraBackup SST <xtrabackup_sst>` wouldn't stop when |MySQL| was ``SIGKILLed``. This would prevent |MySQL| to initiate a new transfer as port 4444 was already utilized. Bug fixed :bug:`1380697`.
 
  :file:`wsrep_sst_xtrabackup-v2` script was causing |innobackupex| to print a false positive stack trace into the log. Bug fixed :bug:`1407599`.
 
@@ -19,9 +19,9 @@ Bugs fixed
 
  :variable:`gcache.mem_size` has been deprecated. A warning will now be generated if the variable has value different than ``0``. Bug fixed :bug:`1392408`.
 
-  ``stderr`` of SST/Innobackupex is logged to syslog with appropriate tags if ``sst-syslog`` is in ``[sst]`` or ``[mysqld_safe]`` has syslog. This can be overriden by setting the :variable:`sst-syslog` to ``-1`` in ``[sst]``). Bug fixed :bug:`1399134`.
+ ``stderr`` of SST/Innobackupex is logged to syslog with appropriate tags if ``sst-syslog`` is in ``[sst]`` or ``[mysqld_safe]`` has syslog in :file:`my.cnf`. This can be overriden by setting the :variable:`sst-syslog` to ``-1`` in ``[sst]``. Bug fixed :bug:`1399134`.
 
- ``clustercheck`` can now check if the node is ``PRIMARY`` or not. Bug fixed :bug:`1403566`.
+ ``clustercheck`` can now check if the node is ``PRIMARY`` or not, to allow for synced nodes which go out of ``PRIMARY`` not to take any writes/reads. Bug fixed :bug:`1403566`.
 
  |SST| will now fail early if the :file:`xtrabackup_checkpoints` is missing on the joiner side. Bug fixed :bug:`1405985`.
 
@@ -31,15 +31,29 @@ Bugs fixed
 
  10 seconds timeout in :ref:`xtrabackup_sst` script was not enough for the joiner to delete existing files before it started the socat receiver on systems with big ``datadir``. Bug fixed :bug:`1413879`.
 
- Non booststrap node could crash while attempting to perform ``table%cache`` operations. Bug fixed :bug:`1414635`.
+ Non booststrap node could crash while attempting to perform ``table%cache`` operations with the ``BF applier failed to open_and_lock_tables`` warning. Bug fixed :bug:`1414635`.
 
- |Percona XtraDB Cluster| 5.6 would crash on ``ALTER TABLE`` / ``CREATE INDEX`` due to ?????. Bug fixed :bug:`1282707`.
+ |Percona XtraDB Cluster| 5.6 would crash on ``ALTER TABLE`` / ``CREATE INDEX`` with ``Failing assertion: table->n_rec_locks == 0``. Bug fixed :bug:`1282707`.
 
  Variable length arrays in WSREP code were causing debug builds to fail. Bug fixed :bug:`1409042`.
 
- Race condition between donor and joiner in :ref:`xtrabackup_sst` has been fixed. Bug fixed :bug:`1405668`.
+ Race condition between donor and joiner in :ref:`xtrabackup_sst` has been fixed. This caused :ref:`XtraBackup SST <xtrabackup_sst>` to fail when joiner took longer to spawn the second listener for SST. Bug fixed :bug:`1405668`.
 
-Other bugs fixed: :bug:`1399175`, :bug:`1382797`, :bug:`1275814` 
+ Signal handling in ``mysqld`` has been fixed for SST processes. Bug fixed :bug:`1399175`.
+
+ SST processes are now spawned with ``fork/exec`` instead of ``posix_spawn`` to allow for better cleanup of child processes in event of non-graceful termination (``SIGKILL`` or a crash etc.). Bug fixed :bug:`1382797`.
+
+Other bugs fixed: bug:`1275814`. 
+
+Known Issues
+============
+
+For those affected by crashes on donor during SST due to backup locks (:bug:`1401133`), please use: ::
+
+  [sst]
+  inno-backup-opts='--no-backup-locks'
+
+option as a workaround to force ``FTWRL`` (**NOTE:** This workaround will is available only if you're using |Percona XtraBackup| 2.2.9 or newer.).
 
 Help us improve quality by reporting any bugs you encounter using our `bug tracking system <https://bugs.launchpad.net/percona-xtradb-cluster/+filebug>`_. As always, thanks for your continued support of Percona!
 
