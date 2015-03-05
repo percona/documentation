@@ -61,7 +61,7 @@ For those affected by crashes on donor during SST due to backup locks (:bug:`140
   [sst]
   inno-backup-opts='--no-backup-locks'
 
-option as a workaround to force ``FLUSH TABLES WITH READ LOCK`` (**NOTE:** This workaround will is available only if you're using |Percona XtraBackup| 2.2.9 or newer.).
+option as a workaround to force ``FLUSH TABLES WITH READ LOCK`` (**NOTE:** This workaround will is available only if you're using |Percona XtraBackup| 2.2.9 or newer.). Or as an alternative you can set your environment variable ``FORCE_FTWRL`` to ``1``.
 
 Help us improve quality by reporting any bugs you encounter using our `bug tracking system <https://bugs.launchpad.net/percona-xtradb-cluster/+filebug>`_. As always, thanks for your continued support of Percona!
 
