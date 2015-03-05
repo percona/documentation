@@ -4,7 +4,7 @@
  |Percona XtraDB Cluster| 5.6.22-25.8 
 ======================================
 
-Percona is glad to announce the release of |Percona XtraDB Cluster| 5.6 on March 3rd 2015. Binaries are available from `downloads area <http://www.percona.com/downloads/Percona-XtraDB-Cluster-56/release-5.6.22-25.8/>`_ or from our :doc:`software repositories </installation>`.
+Percona is glad to announce the release of |Percona XtraDB Cluster| 5.6 on March 5th 2015. Binaries are available from `downloads area <http://www.percona.com/downloads/Percona-XtraDB-Cluster-56/release-5.6.22-25.8/>`_ or from our :doc:`software repositories </installation>`.
 
 Based on `Percona Server 5.6.22-72.0 <http://www.percona.com/doc/percona-server/5.6/release-notes/Percona-Server-5.6.22-72.0.html>`_ including all the bug fixes in it, `Galera Replicator 3.9 <https://github.com/codership/galera/issues?q=milestone%3A25.3.9>`_ and on `Codership wsrep API 25.8 <https://launchpad.net/codership-mysql/+milestone/5.6.21-25.8>`_ is now the current **General Availability** release. All of |Percona|'s software is open-source and free, all the details of the release can be found in the `5.6.22-25.8 milestone <https://launchpad.net/percona-xtradb-cluster/+milestone/5.6.22-25.8>`_ at Launchpad.
 
@@ -15,7 +15,7 @@ Bugs fixed
 
  :file:`wsrep_sst_xtrabackup-v2` script was causing |innobackupex| to print a false positive stack trace into the log. Bug fixed :bug:`1407599`.
 
- |MyISAM| DDL (``CREATE/DROP``) isn't replicated any more when :variable:`wsrep_replicate_myisam` is ``OFF``. Bug fixed :bug:`1402338`.
+ |MyISAM| DDL (``CREATE/DROP``) isn't replicated any more when :variable:`wsrep_replicate_myisam` is ``OFF``. Note, for older nodes in the cluster, :variable:`wsrep-replicate-myisam` should work since the TOI decision (for MyISAM DDL) is done on origin node. Mixing of non-MyISAM and MyISAM tables in the same DDL statement is not recommended with :variable:`wsrep_replicate_myisam` ``OFF`` since if any table in list is |MyISAM|, the whole DDL statement is not put under TOI (total order isolation). Bug fixed :bug:`1402338`.
 
  :variable:`gcache.mem_size` has been deprecated. A warning will now be generated if the variable has value different than ``0``. Bug fixed :bug:`1392408`.
 
