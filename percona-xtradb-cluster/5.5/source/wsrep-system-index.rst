@@ -118,7 +118,7 @@ When this variable is set to ``ON``, debug messages will also be logged to the e
    :dyn: Yes
    :default: OFF
 
-When this variable is set to ``ON``, the node is desynced from the cluster. Toggling this back will require a IST or a SST depending on how long it was desynced. This is similar to desync which occurs during RSU TOI. This can also be done with  ``/*! WSREP_DESYNC */`` query comment.
+This variable controls whether the node participates in Flow Control. Setting the :variable:`wsrep_desync` to ``ON`` does not automatically mean that a node will be out of sync with the cluster. It will continue to replicate in and out the writesets as usual. The only difference is that flow control will no longer take care of the ``desynced`` node. The result is that if :variable:`wsrep_local_recv_queue` gets higher than maximum allowed, all the other nodes will continue working ignoring the replication lag on the node being in ``desync`` mode. Toggling this back will require a IST or a SST depending on how long it was desynchronized. This is similar to cluster de-synchronization which occurs during RSU TOI. Because of this, it's not a good idea to keep desync set for a long period of time, nor should you desync several nodes at once. Also, you'll need to desync a node before it starts causing flow control for it to have any effect. Node can also be desynchronized with  ``/*! WSREP_DESYNC */`` query comment. 
 
 .. variable:: wsrep_drupal_282555_workaround
 
