@@ -297,7 +297,7 @@ Note, that this doesn't affect galera replication in any way, only the applicati
    :dyn: No
    :default: Off
 
-This variable controls if *MyISAM* will be replicated or not. *MyISAM* replication is still experimental and that is one of the reasons why this variable is set to ``OFF`` by default. 
+This variable controls if *MyISAM* will be replicated or not. *MyISAM* replication is still experimental and that is one of the reasons why this variable is set to ``OFF`` by default. From version :rn:`5.5.41-25.11` |MyISAM| DDL (``CREATE``) isn't replicated when :variable:`wsrep_replicate_myisam` is ``OFF``. *Note*, for older nodes in the cluster, :variable:`wsrep-replicate-myisam` should work since the TOI decision (for MyISAM DDL) is done on origin node. Mixing of non-MyISAM and MyISAM tables in the same DDL statement is not recommended with :variable:`wsrep_replicate_myisam` ``OFF`` since if any table in list is |MyISAM|, the whole DDL statement is not put under TOI (total order isolation). 
 
 .. variable:: wsrep_retry_autocommit
 
