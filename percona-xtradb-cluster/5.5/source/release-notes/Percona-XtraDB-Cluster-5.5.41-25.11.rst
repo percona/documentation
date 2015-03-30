@@ -6,15 +6,9 @@
 
 Percona is glad to announce the release of |Percona XtraDB Cluster| on March 30th, 2015. Binaries are available from `downloads area <http://www.percona.com/downloads/Percona-XtraDB-Cluster/5.5.41-25.11/>`_ or from our :doc:`software repositories </installation>`.
 
-Based on `Percona Server 5.5.41-37.0 <http://www.percona.com/doc/percona-server/5.5/release-notes/Percona-Server-5.5.41-37.0.html>`_ including all the bug fixes in it, Galera Replicator 2.11 and on wsrep API `25.11 <https://launchpad.net/codership-mysql/+milestone/5.5.38-25.11>`_), |Percona XtraDB Cluster| `5.5.41-25.11 <https://launchpad.net/percona-xtradb-cluster/+milestone/5.5.41-25.11>`_ is now the current stable release. All of |Percona|'s software is open-source and free. 
+Based on `Percona Server 5.5.41-37.0 <http://www.percona.com/doc/percona-server/5.5/release-notes/Percona-Server-5.5.41-37.0.html>`_ including all the bug fixes in it, Galera Replicator 2.11 and on wsrep API 25.11, |Percona XtraDB Cluster| `5.5.41-25.11 <https://launchpad.net/percona-xtradb-cluster/+milestone/5.5.41-25.11>`_ is now the current stable release. All of |Percona|'s software is open-source and free. 
 
 This is an General Availability release. We did our best to eliminate bugs and problems during the testing release, but this is a software, so bugs are expected. If you encounter them, please report them to our `bug tracking system <https://bugs.launchpad.net/percona-xtradb-cluster/+filebug>`_.
-
-
-New Features
-============
-
- |Percona XtraDB Cluster| 5.5.41-25.11 packages are now available for *Ubuntu* 14.10 (utopic).  
 
 Bugs fixed 
 ==========
@@ -25,13 +19,15 @@ Bugs fixed
 
  :file:`wsrep_sst_xtrabackup-v2` script was causing |innobackupex| to print a false positive stack trace into the log. Bug fixed :bug:`1407599`.
 
- |MyISAM| DDL (``CREATE``) isn't replicated any more when :variable:`wsrep_replicate_myisam` is ``OFF``. Note, for older nodes in the cluster, :variable:`wsrep_replicate_myisam` should work since the TOI decision (for MyISAM DDL) is done on origin node. Mixing of non-MyISAM and MyISAM tables in the same DDL statement is not recommended with :variable:`wsrep_replicate_myisam` ``OFF`` since if any table in list is |MyISAM|, the whole DDL statement is not put under TOI (total order isolation). Bug fixed :bug:`1402338`.
+ |MyISAM| DDL (``CREATE TABLE`` only) isn't replicated anymore when :variable:`wsrep_replicate_myisam` is ``OFF``. Note, for older nodes in the cluster, :variable:`wsrep_replicate_myisam` should work since the TOI decision (for MyISAM DDL) is done on origin node. Mixing of non-MyISAM and MyISAM tables in the same DDL statement is not recommended with :variable:`wsrep_replicate_myisam` ``OFF`` since if any table in list is |MyISAM|, the whole DDL statement is not put under TOI (total order isolation). This also doesn't work if :variable:`default_storage_engine` is set to ``MyISAM`` (which is not recommended for |Percona XtraDB Cluster|) and a table is created without the ``ENGINE`` option. Bug fixed :bug:`1402338`.
 
  |Percona XtraDB Cluster| now shows a warning in case additional utilities, like ``pv`` which may not affect critical path of SST, are not installed. Bug fixed :bug:`1248688`.
 
  :variable:`wsrep_causal_reads` variable was not honored when declared as global. Bug fixed :bug:`1361859`.
 
  ``garbd`` would not work when cluster address was specified without the port. Bug fixed :bug:`1365193`.
+
+ ``garbd`` was running as root user on *Debian*. Bug fixed :bug:`1392388`.
 
  Errors in ``garbd`` init script stop/start functions have been fixed. Bug fixed :bug:`1367956`.
 
@@ -63,5 +59,5 @@ Bugs fixed
 
  Inserts to a table with autoincrement primary key could result in duplicate key error if another node joined or dropped from the cluster during the insert processing. Bug fixed :bug:`1366997`.
 
-Other bugs fixed: :bug:`1391634`, :bug:`1392388`, and :bug:`1396757`.
+Other bugs fixed: :bug:`1391634` and :bug:`1396757`.
 
