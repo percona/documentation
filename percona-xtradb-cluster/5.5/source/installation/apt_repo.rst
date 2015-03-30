@@ -37,8 +37,8 @@ Ubuntu
 
  * 10.04LTS lucid
  * 12.04LTS precise
- * 13.10 saucy
  * 14.04LTS trusty
+ * 14.10 utopic
 
 
 Install XtraDB Cluster
@@ -50,7 +50,7 @@ $ sudo apt-get install percona-xtradb-cluster-55
 
 .. note:: 
 
-  For Ubuntu 14.04 (Trusty) ``percona-xtradb-cluster-galera-2.x`` will have to be specified with the meta package so the installation command should look like: :: 
+  For Ubuntu 14.04 (Trusty) and 14.10 (Utopic) ``percona-xtradb-cluster-galera-2.x`` will have to be specified with the meta package so the installation command should look like: :: 
 
   $ sudo apt-get install percona-xtradb-cluster-55 percona-xtradb-cluster-galera-2.x
 

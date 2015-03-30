@@ -72,7 +72,7 @@ Configuration file :file:`/etc/my.cnf` for the first node should look like: ::
   wsrep_node_address=192.168.70.71
 
   # SST method
-  wsrep_sst_method=xtrabackup
+  wsrep_sst_method=xtrabackup-v2
 
   # Cluster name
   wsrep_cluster_name=my_centos_cluster
@@ -80,12 +80,16 @@ Configuration file :file:`/etc/my.cnf` for the first node should look like: ::
   # Authentication for SST method
   wsrep_sst_auth="sstuser:s3cret"
 
-
 After this, first node can be started with the following command: ::
 
-  [root@percona1 ~]# /etc/init.d/mysql start --wsrep-cluster-address="gcomm://"
- 
+  [root@percona1 ~]# /etc/init.d/mysql bootstrap-pxc
+
+In case you're running this tutorial on *CentOS* 7 server, systemd bootstrap service should be used instead: ::
+
+  [root@percona1 ~]#  systemctl start mysql@bootstrap.service
+     
 This command will start the cluster with initial :variable:`wsrep_cluster_address` set to ``gcomm://``. This way the cluster will be bootstrapped and in case the node or |MySQL| have to be restarted later, there would be no need to change the configuration file.
+
 
 After the first node has been started, cluster status can be checked by: 
 
@@ -159,7 +163,7 @@ Configuration file :file:`/etc/my.cnf` on the second node (``percona2``) should 
   wsrep_cluster_name=my_centos_cluster
 
   # SST method
-  wsrep_sst_method=xtrabackup
+  wsrep_sst_method=xtrabackup-v2
 
   #Authentication for SST method
   wsrep_sst_auth="sstuser:s3cret"
@@ -220,7 +224,7 @@ MySQL configuration file :file:`/etc/my.cnf` on the third node (``percona3``) sh
   wsrep_cluster_name=my_centos_cluster
 
   # SST method
-  wsrep_sst_method=xtrabackup
+  wsrep_sst_method=xtrabackup-v2
 
   #Authentication for SST method
   wsrep_sst_auth="sstuser:s3cret"
