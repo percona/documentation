@@ -25,8 +25,12 @@ There are some limitations which you should be aware of. Some of them will be el
 
  - The write throughput of the whole cluster is limited by weakest node. If one node becomes slow, whole cluster is slow. If you have requirements for stable high performance, then it should be supported by corresponding hardware.
 
- - The minimal recommended size of cluster is 3 nodes.
-
- - To enable Query Cache, node should be started with :variable:`query_cache_type` set to ``1`` and :variable:`query_cache_size` set to ``0``. After the node has been successfully started :variable:`query_cache_size` can be changed to desired value during the runtime.
+ - The minimal recommended size of cluster is 3 nodes. The 3rd node can be an arbitrator.
 
  - Innodb fake changes feature is not supported.
+
+ - enforce_storage_engine=InnoDB is not compatible wsrep_replicate_myisam=OFF (default).
+
+ - :variable:`binlog_rows_query_log_events` variable not supported.
+
+ - Backup locks used during SST or with Xtrabackup can crash, either use  inno-backup-opts='--no-backup-locks' under [sst] in my.cnf or set FORCE_FTWRL=1 in /etc/sysconfig/mysql (or /etc/sysconfig/mysql.%i for corresponding unit/service) for CentOS/RHEL or /etc/default/mysql in debian/ubuntu.
