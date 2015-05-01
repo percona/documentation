@@ -23,7 +23,7 @@ There are some limitations which you should be aware of. Some of them will be el
 
  - The write throughput of the whole cluster is limited by weakest node. If one node becomes slow, whole cluster is slow. If you have requirements for stable high performance, then it should be supported by corresponding hardware.
 
- - The minimal recommended size of cluster is 3 nodes.
+ - The minimal recommended size of cluster is 3 nodes. The 3rd node can be an arbitrator.
 
  - Innodb fake changes feature is not supported.
 
