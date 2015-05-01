@@ -33,4 +33,4 @@ There are some limitations which you should be aware of. Some of them will be el
 
  - :variable:`binlog_rows_query_log_events` variable not supported.
 
- - Backup locks used during SST or with Xtrabackup can crash, either use  inno-backup-opts='--no-backup-locks' under [sst] in my.cnf or set FORCE_FTWRL=1 in /etc/sysconfig/mysql (or /etc/sysconfig/mysql.%i for corresponding unit/service) for CentOS/RHEL or /etc/default/mysql in debian/ubuntu.
+ - Backup locks used during SST or with Xtrabackup can crash, either use  inno-backup-opts='--no-backup-locks' under [sst] in my.cnf or set FORCE_FTWRL=1 in /etc/sysconfig/mysql (or /etc/sysconfig/mysql.%i for corresponding unit/service) for CentOS/RHEL or /etc/default/mysql in debian/ubuntu. You can also use rsync as the alternate SST method if those don't work.
