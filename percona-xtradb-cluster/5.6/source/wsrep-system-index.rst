@@ -120,6 +120,17 @@ When this variable is set to ``ON``, debug messages will also be logged to the e
  
 This variable controls whether the node participates in Flow Control. Setting the :variable:`wsrep_desync` to ``ON`` does not automatically mean that a node will be out of sync with the cluster. It will continue to replicate in and out the writesets as usual. The only difference is that flow control will no longer take care of the ``desynced`` node. The result is that if :variable:`wsrep_local_recv_queue` gets higher than maximum allowed, all the other nodes will continue working ignoring the replication lag on the node being in ``desync`` mode. Toggling this back will require a IST or a SST depending on how long it was desynchronized. This is similar to cluster de-synchronization which occurs during RSU TOI. Because of this, it's not a good idea to keep desync set for a long period of time, nor should you desync several nodes at once. Also, you'll need to desync a node before it starts causing flow control for it to have any effect. Node can also be desynchronized with  ``/*! WSREP_DESYNC */`` query comment.
 
+.. variable:: wsrep_dirty_reads
+
+   :version 5.6.24-25.11: Variable introduced
+   :cli: Yes
+   :conf: Yes
+   :scope: Session
+   :dyn: Yes
+   :default: OFF
+
+This variable is boolean and is OFF by default. When set to ON, a Percona XtraDB Cluster node accepts queries that only read, but not modify data even if the node is in the non-PRIM state 
+
 .. variable:: wsrep_drupal_282555_workaround
 
    :cli: Yes
@@ -302,9 +313,10 @@ Note, that this doesn't affect galera replication in any way, only the applicati
 
 .. variable:: wsrep_replicate_myisam
 
+   :version 5.6.24-25.11: Prior to :rn:`5.6.24-25.11` this variable was only a GLOBAL variable
    :cli: Yes
    :conf: Yes
-   :scope: Global
+   :scope: Session, Global
    :dyn: No
    :default: OFF
 

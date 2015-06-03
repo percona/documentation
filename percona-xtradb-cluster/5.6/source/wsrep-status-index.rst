@@ -140,6 +140,14 @@ Description of the :variable:`wsrep_local_state` variable.
   
 This variable shows the number of entries in the certification index.
 
+.. variable:: wsrep_cert_bucket_count
+
+This variable, implemented in :rn:`5.6.24-25.11`, shows the number of cells in the certification index hash-table.
+
+.. variable:: wsrep_gcache_pool_size
+
+This variable, implemented in :rn:`5.6.24-25.11`, shows the size of the page pool and/or dynamic memory allocated for gcache (in bytes).
+
 .. variable:: wsrep_causal_reads_
 
 Shows the number of writesets processed while the variable :variable:`wsrep_causal_reads` was set to ``ON``.
