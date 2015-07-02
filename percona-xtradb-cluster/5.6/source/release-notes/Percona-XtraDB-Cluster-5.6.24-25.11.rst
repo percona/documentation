@@ -52,5 +52,6 @@ Bugs fixed
 
  :variable:`wsrep_local_cached_downto` would underflow when the node on which it is queried has no writesets in gcache.
 
+ :variable:`wsrep_OSU_method` is now both Global and Session variable. 
  
 Other bugs fixed: :bug:`1290526`.
