@@ -6,15 +6,18 @@
 
 .. variable:: wsrep_OSU_method
 
+   :version 5.6.24-25.11: Variable is now both global and session variable
    :cli: Yes
    :conf: Yes
-   :scope: Global
+   :scope: Global/Session
    :dyn: Yes
    :default: TOI
 
 This variable can be used to select schema upgrade method. Available values are:
   * TOI - Total Order Isolation - When this method is selected ``DDL`` is processed in the same order with regards to other transactions in each cluster node. This guarantees data consistency. In case of ``DDL`` statements cluster will have parts of database locked and it will behave like a single server. In some cases (like big ``ALTER TABLE``) this could have impact on cluster's performance and high availability, but it could be fine for quick changes that happen almost instantly (like fast index changes). When ``DDL`` is processed under total order isolation (TOI) the ``DDL`` statement will be replicated up front to the cluster. i.e. cluster will assign global transaction ID for the ``DDL`` statement before the ``DDL`` processing begins. Then every node in the cluster has the responsibility to execute the ``DDL`` in the given slot in the sequence of incoming transactions, and this ``DDL`` execution has to happen with high priority. 
   * RSU - Rolling Schema Upgrade - When this method is selected ``DDL`` statements won't be replicated across the cluster, instead it's up to the user to run them on each node separately. The node applying the changes will desynchronize from the cluster briefly, while normal work happens on all the other nodes. When the ``DDL`` statement is processed node will apply delayed replication events. The schema changes **must** be backwards compatible for this method to work, otherwise the node that receives the change will likely break Galera replication. If the replication breaks the SST will be triggered when the node tries to join again but the change will be undone. 
+
+**NOTE**: Prior to |Percona XtraDB Cluster| :rn:`5.6.24-25.11`, :variable:`wsrep_OSU_method` was only a global variable. Current behavior is now consistent with |MySQL| behavior for variables that have both global and session scope. This means if you want to change the variable in current session you need to do it with: ``SET wsrep_OSU_method`` (without the ``GLOBAL`` keyword). Setting the variable with ``SET GLOBAL wsrep_OSU_method`` will change the variable globally but it won't have effect on current session.
 
 .. variable:: wsrep_auto_increment_control
 
