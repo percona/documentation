@@ -232,7 +232,7 @@ This variable is used to set up the unique node name.
    :scope: Global
    :dyn: Yes
 
-This variable is used to set the notification `command <http://galeracluster.com/documentation-webpages/notification-cmd.html>`_ that server will execute every time cluster membership or local node status changes.
+This variable is used to set the notification `command <http://galeracluster.com/documentation-webpages/notificationcmd.html>`_ that server will execute every time cluster membership or local node status changes.
 
 .. variable:: wsrep_on
 
