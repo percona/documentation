@@ -81,7 +81,7 @@ How-tos
    :maxdepth: 1
    :glob:
   
-   howtos/cenots_howto
+   howtos/centos_howto
    howtos/ubuntu_howto
    howtos/singlebox
    howtos/3nodesec2
