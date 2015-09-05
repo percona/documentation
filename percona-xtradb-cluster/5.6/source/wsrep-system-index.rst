@@ -6,15 +6,18 @@
 
 .. variable:: wsrep_OSU_method
 
+   :version 5.6.24-25.11: Variable is now both global and session variable
    :cli: Yes
    :conf: Yes
-   :scope: Global
+   :scope: Global/Session
    :dyn: Yes
    :default: TOI
 
 This variable can be used to select schema upgrade method. Available values are:
   * TOI - Total Order Isolation - When this method is selected ``DDL`` is processed in the same order with regards to other transactions in each cluster node. This guarantees data consistency. In case of ``DDL`` statements cluster will have parts of database locked and it will behave like a single server. In some cases (like big ``ALTER TABLE``) this could have impact on cluster's performance and high availability, but it could be fine for quick changes that happen almost instantly (like fast index changes). When ``DDL`` is processed under total order isolation (TOI) the ``DDL`` statement will be replicated up front to the cluster. i.e. cluster will assign global transaction ID for the ``DDL`` statement before the ``DDL`` processing begins. Then every node in the cluster has the responsibility to execute the ``DDL`` in the given slot in the sequence of incoming transactions, and this ``DDL`` execution has to happen with high priority. 
   * RSU - Rolling Schema Upgrade - When this method is selected ``DDL`` statements won't be replicated across the cluster, instead it's up to the user to run them on each node separately. The node applying the changes will desynchronize from the cluster briefly, while normal work happens on all the other nodes. When the ``DDL`` statement is processed node will apply delayed replication events. The schema changes **must** be backwards compatible for this method to work, otherwise the node that receives the change will likely break Galera replication. If the replication breaks the SST will be triggered when the node tries to join again but the change will be undone. 
+
+**NOTE**: Prior to |Percona XtraDB Cluster| :rn:`5.6.24-25.11`, :variable:`wsrep_OSU_method` was only a global variable. Current behavior is now consistent with |MySQL| behavior for variables that have both global and session scope. This means if you want to change the variable in current session you need to do it with: ``SET wsrep_OSU_method`` (without the ``GLOBAL`` keyword). Setting the variable with ``SET GLOBAL wsrep_OSU_method`` will change the variable globally but it won't have effect on current session.
 
 .. variable:: wsrep_auto_increment_control
 
@@ -119,6 +122,17 @@ When this variable is set to ``ON``, debug messages will also be logged to the e
    :default: OFF
  
 This variable controls whether the node participates in Flow Control. Setting the :variable:`wsrep_desync` to ``ON`` does not automatically mean that a node will be out of sync with the cluster. It will continue to replicate in and out the writesets as usual. The only difference is that flow control will no longer take care of the ``desynced`` node. The result is that if :variable:`wsrep_local_recv_queue` gets higher than maximum allowed, all the other nodes will continue working ignoring the replication lag on the node being in ``desync`` mode. Toggling this back will require a IST or a SST depending on how long it was desynchronized. This is similar to cluster de-synchronization which occurs during RSU TOI. Because of this, it's not a good idea to keep desync set for a long period of time, nor should you desync several nodes at once. Also, you'll need to desync a node before it starts causing flow control for it to have any effect. Node can also be desynchronized with  ``/*! WSREP_DESYNC */`` query comment.
+
+.. variable:: wsrep_dirty_reads
+
+   :version 5.6.24-25.11: Variable introduced
+   :cli: Yes
+   :conf: Yes
+   :scope: Session
+   :dyn: Yes
+   :default: OFF
+
+This variable is boolean and is OFF by default. When set to ON, a Percona XtraDB Cluster node accepts queries that only read, but not modify data even if the node is in the non-PRIM state 
 
 .. variable:: wsrep_drupal_282555_workaround
 
@@ -232,7 +246,7 @@ This variable is used to set up the unique node name.
    :scope: Global
    :dyn: Yes
 
-This variable is used to set the notification `command <http://galeracluster.com/documentation-webpages/notification-cmd.html>`_ that server will execute every time cluster membership or local node status changes.
+This variable is used to set the notification `command <http://galeracluster.com/documentation-webpages/notificationcmd.html>`_ that server will execute every time cluster membership or local node status changes.
 
 .. variable:: wsrep_on
 
@@ -302,13 +316,14 @@ Note, that this doesn't affect galera replication in any way, only the applicati
 
 .. variable:: wsrep_replicate_myisam
 
+   :version 5.6.24-25.11: Prior to :rn:`5.6.24-25.11` this variable was only a GLOBAL variable
    :cli: Yes
    :conf: Yes
-   :scope: Global
+   :scope: Session, Global
    :dyn: No
    :default: OFF
 
-This variable controls if *MyISAM* will be replicated or not. *MyISAM* replication is still experimental and that is one of the reasons why this variable is set to ``OFF`` by default. 
+This variable controls if *MyISAM* will be replicated or not. *MyISAM* replication is still experimental and that is one of the reasons why this variable is set to ``OFF`` by default. *MyISAM* ``CREATE TABLE`` isn't replicated any more when :variable:`wsrep_replicate_myisam` is ``OFF``. Note, for older nodes in the cluster, :variable:`wsrep_replicate_myisam` should work since the TOI decision (for *MyISAM* DDL) is done on origin node. Mixing of non-MyISAM and *MyISAM* tables in the same DDL statement is not recommended with :variable:`wsrep_replicate_myisam` ``OFF`` since if any table in list is *MyISAM*, the whole DDL statement is not put under TOI (total order isolation).
 
 .. variable:: wsrep_restart_slave
 

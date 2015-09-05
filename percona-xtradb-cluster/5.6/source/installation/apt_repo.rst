@@ -31,14 +31,15 @@ Debian
 
  * 6.0 squeeze
  * 7.0 wheezy
+ * 8.0 jessie
 
 Ubuntu
 ------
 
- * 10.04LTS lucid
  * 12.04LTS precise
- * 13.10 saucy
  * 14.04LTS trusty
+ * 14.10 utopic
+ * 15.04 vivid
 
 
 Install Percona XtraDB Cluster
@@ -56,6 +57,10 @@ Instead of ``percona-xtradb-cluster-56`` you can install ``percona-xtradb-cluste
     
    Garbd is packaged separately as part of debian split packaging. The garbd debian package is ``percona-xtradb-cluster-garbd-3.x``. The package contains, garbd, daemon init script and related config files. This package will be installed if you install the ``percona-xtradb-cluster-56-full`` meta package.
 
+.. note:: 
+
+   On *Debian Jessie (8.0)* and *Ubuntu Vivid (15.04)* in order to stop or reload the node bootstrapped with ``service mysql bootstrap-pxc`` command, you'll need to use ``service mysql stop-bootstrap`` or ``service mysql reload-bootstrap`` respectively. Also, status of the bootstrapped node should be checked with ``service mysql status-bootstrap``.
+   
 Percona `apt` Testing repository
 =================================
 

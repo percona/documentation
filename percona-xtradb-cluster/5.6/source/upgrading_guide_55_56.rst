@@ -54,6 +54,8 @@ If there are any invalid variables, it will print it there without affect galera
     wsrep_provider_options="socket.checksum=1"
     # Required for replication compatibility
     log_bin_use_v1_row_events=1
+    avoid_temporal_upgrade=ON   # Available in 5.6.24 and up
+
     gtid_mode=0
     binlog_checksum=NONE
     # Required under certain conditions
@@ -115,6 +117,7 @@ Stage III [Optional]
     # You can keep some of these if you wish.
 
     log_bin_use_v1_row_events=1
+    avoid_temporal_upgrade=ON   # Available in 5.6.24 and up
 
     # You can keep if you are not adding async-slaves.
     # Apropos, you may need to enable this if you are adding async-slaves, refer to MySQL 5.6 gtid_mode documentation for more details on this variable.
@@ -150,6 +153,8 @@ Assuming we are going to upgrade node A, (and other nodes B and C are on 5.5)
     wsrep_provider_options="socket.checksum=1"
     # Required for replication compatibility
     log_bin_use_v1_row_events=1
+    avoid_temporal_upgrade=ON   # Available in 5.6.24 and up
+
     gtid_mode=0
     binlog_checksum=NONE
     # Required under certain conditions
@@ -217,6 +222,7 @@ Stage III [Optional]
     # You can keep some of these if you wish.
 
     log_bin_use_v1_row_events=1
+    avoid_temporal_upgrade=ON   # Available in 5.6.24 and up
 
     # You can keep if you are not adding async-slaves.
     # Apropos, you may need to enable this if you are adding async-slaves, refer to MySQL 5.6 gtid_mode documentation for more details on this variable.
