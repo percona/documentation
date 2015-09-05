@@ -25,27 +25,6 @@ Drawbacks:
  * This can't be used as an effective write scaling solution. There might be some improvements in write throughput when you run write traffic to 2 nodes vs all traffic to 1 node, but you can't expect a lot. All writes still have to go on all nodes.
  * You have several duplicates of data, for 3 nodes – 3 duplicates.
 
-What is core difference Percona XtraDB Cluster from MySQL Replication ?
-=======================================================================
-
-Let's take look into the well known CAP theorem for Distributed systems.
-Characteristics of Distributed systems:
-
- C - Consistency (all your data is consistent on all nodes),
-
- A - Availability  (your system is AVAILABLE to handle requests in case of  failure of one or several nodes ),
-
- P - Partitioning  tolerance (in case of inter-node connection failure, each node is still available to handle requests).
-
-
-CAP theorem says that each Distributed system can have only two out of these three.
-
-|MySQL| replication has: Availability and Partitioning tolerance.
-
-|Percona XtraDB Cluster| has: Consistency and Availability.
-
-That is |MySQL| replication does not guarantee Consistency of your data, while |Percona XtraDB Cluster| provides data Consistency (but it loses Partitioning tolerance property).
-
 Components
 ==========
 
