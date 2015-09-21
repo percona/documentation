@@ -6,7 +6,7 @@
 
 Percona is glad to announce the release of |Percona XtraDB Cluster| 5.6.25-25.12 on September 20th 2015. Binaries are available from `downloads area <http://www.percona.com/downloads/Percona-XtraDB-Cluster-56/release-5.6.25-25.12/>`_ or from our :ref:`software repositories <installation>`.
 
-Based on `Percona Server 5.6.25-73.1 <http://www.percona.com/doc/percona-server/5.6/release-notes/Percona-Server-5.6.25-73.1.html>`_ including all the bug fixes in it, *Galera Replicator* `3.12 <https://github.com/codership/galera/issues?q=milestone%3A25.3.12>`_ and on *Codership wsrep API* `25.11 <https://github.com/codership/mysql-wsrep/milestones/5.6.x-25.11>`_ is now the current **General Availability** release. All of |Percona|'s software is open-source and free, all the details of the release can be found in the `5.6.24-25.12 milestone <https://launchpad.net/percona-xtradb-cluster/+milestone/5.6.24-25.12>`_ at Launchpad.
+Based on `Percona Server 5.6.25-73.1 <http://www.percona.com/doc/percona-server/5.6/release-notes/Percona-Server-5.6.25-73.1.html>`_ including all the bug fixes in it, *Galera Replicator* `3.12 <https://github.com/codership/galera/issues?q=milestone%3A25.3.12>`_ and on *Codership wsrep API* `25.11 <https://github.com/codership/mysql-wsrep/issues?q=milestone%3A5.6.26-25.11>`_ is now the current **General Availability** release. All of |Percona|'s software is open-source and free, all the details of the release can be found in the `5.6.24-25.12 milestone <https://launchpad.net/percona-xtradb-cluster/+milestone/5.6.24-25.12>`_ at Launchpad.
 
 New Features
 ============
