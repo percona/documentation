@@ -50,7 +50,6 @@ For example for 4567 port (substitute 192.168.0.1 by your IP): ::
   wsrep_sst_method=rsync
   wsrep_node_name=node1
 
-  innodb_locks_unsafe_for_binlog=1
   innodb_autoinc_lock_mode=2
 
  On the second node (assume IP 10.93.46.59): ::
@@ -69,7 +68,6 @@ For example for 4567 port (substitute 192.168.0.1 by your IP): ::
   wsrep_sst_method=rsync
   wsrep_node_name=node2
 
-  innodb_locks_unsafe_for_binlog=1
   innodb_autoinc_lock_mode=2
 
 On the third (and following nodes) configuration is similar, with the following change: ::
