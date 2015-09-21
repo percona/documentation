@@ -285,6 +285,17 @@ This variable defines the timeout after which past views will be dropped from hi
 
 This variable can be used to define the location of the :file:`galera.cache` file.
 
+.. variable:: gcache.keep_pages_count
+
+   :version: Implemented in :rn:`5.6.25-25.12`
+   :cli: Yes
+   :conf: Yes
+   :scope: Local, Global
+   :dyn: Yes
+   :default: 0
+
+This variable is used to limit the number of overflow pages rather than the total memory occupied by all overflow pages. Whenever either this or :variable:`gcache.keep_pages_size` variables are updated at runtime to a non-zero value, cleanup is called on excess overflow pages to delete them.
+
 .. variable:: gcache.keep_pages_size
 
    :cli: Yes

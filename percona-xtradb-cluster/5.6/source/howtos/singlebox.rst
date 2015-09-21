@@ -85,7 +85,6 @@ Configuration files (/etc/my.4000.cnf): ::
   wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:4030;"
   wsrep_sst_method=rsync
   wsrep_node_name=node4000
-  innodb_locks_unsafe_for_binlog=1
   innodb_autoinc_lock_mode=2
 
 
@@ -110,7 +109,6 @@ Configuration files (/etc/my.5000.cnf): ::
   wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:5030;"
   wsrep_sst_method=rsync
   wsrep_node_name=node5000
-  innodb_locks_unsafe_for_binlog=1
   innodb_autoinc_lock_mode=2
 
 Configuration files (/etc/my.6000.cnf): ::
@@ -134,5 +132,4 @@ Configuration files (/etc/my.6000.cnf): ::
   wsrep_provider_options = "gmcast.listen_addr=tcp://192.168.2.21:6030;"
   wsrep_sst_method=rsync
   wsrep_node_name=node6000
-  innodb_locks_unsafe_for_binlog=1
   innodb_autoinc_lock_mode=2
