@@ -62,6 +62,6 @@ Bugs fixed
 
  Non-global read locks such as ``FLUSH TABLES WITH READ LOCK`` and ``FLUSH TABLES FOR EXPORT`` paused galera provider but didn't block commit globally which :variable:`wsrep_to_isolation_begin` (for DDL) was made aware of. Bug fixed PXC-403.
 
-Following bug fixes have been ported from |Percona Server| `5.6.26-74.0 <https://www.percona.com/doc/percona-server/5.6/release-notes/Percona-Server-5.6.26-74.0.html)>`_: bug :bug:`1454441`, bug :bug:`1470677`, bug :bug:`1472256`, bug :bug:`1472251`, and bug :bug:`1464468`.
+Following bug fixes have been ported from |Percona Server| `5.6.26-74.0 <https://www.percona.com/doc/percona-server/5.6/release-notes/Percona-Server-5.6.26-74.0.html)>`_: bug :bug:`1454441`, bug :bug:`1470677`, bug :bug:`1472256`, and bug :bug:`1472251`.
 
 Other bugs fixed: PXC-370, PXC-429, PXC-415, PXC-400 and PXC-416.
