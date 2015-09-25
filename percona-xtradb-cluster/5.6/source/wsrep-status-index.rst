@@ -172,6 +172,10 @@ Comma separated list of nodes that are considered delayed. The node format is ``
 
 Internal EVS protocol state.
 
+.. variable:: wsrep_gcomm_uuid
+
+This status variable exposes UUIDs in :file:`gvwstate.dat` which are galera view IDs (thus unrelated to cluster state UUIDs). This UUID is unique for each node. You will need to know this value when using manual eviction feature.
+   
 .. variable:: wsrep_cluster_conf_id
 
 Number of cluster membership changes happened.
