@@ -252,7 +252,7 @@ This variable is used to enable/disable wsrep replication. When set to ``OFF`` s
    :dyn: Yes
    :default: None
 
-This variable should contain the path to the Galera library (like :file:`/usr/lib64/libgalera_smm.so`).
+This variable should contain the path to the Galera library (like :file:`/usr/lib64/libgalera_smm.so` on *CentOS*/*RHEL* and :file:`/usr/lib/libgalera_smm.so` on *Debian*/*Ubuntu*).
 
 .. variable:: wsrep_provider_options
 
