@@ -126,10 +126,9 @@ This variable controls whether the node participates in Flow Control. Setting th
 .. variable:: wsrep_dirty_reads
 
    :version 5.6.24-25.11: Variable introduced
-   :version 5.6.25-25.12: Variable now has GLOBAL scope as well
    :cli: Yes
    :conf: Yes
-   :scope: Session/Global
+   :scope: Session
    :dyn: Yes
    :default: OFF
 

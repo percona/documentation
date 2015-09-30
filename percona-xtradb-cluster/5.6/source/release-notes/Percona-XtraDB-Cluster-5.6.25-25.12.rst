@@ -13,8 +13,6 @@ New Features
 
  |Percona XtraDB Cluster| has implemented `Support for PROXY protocol <https://www.percona.com/doc/percona-server/5.6/flexibility/proxy_protocol_support.html#proxy-protocol-support>`_. The implementation is based on a patch developed by Thierry Fournier.
 
- Variable :variable:`wsrep_dirty_reads` now has Global scope as well. (PXC-373).
- 
  MTR coverage has been added to all tests in galera suite. Many bugs associated with mtr tests have been fixed.
 
  A new variable :variable:`gcache.keep_pages_count`, analogous to :variable:`gcache.keep_pages_size`, has been added. The variable limits the number of overflow pages rather than the total memory occupied by all overflow pages. Whenever either of the variables are updated at runtime to a non-zero value, cleanup is called on excess overflow pages to delete them. This feature also fixes the bugs with integer overflow in the ``gcache`` module.
