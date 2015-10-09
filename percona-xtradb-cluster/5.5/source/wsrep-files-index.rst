@@ -56,13 +56,36 @@
    This file is used as a main writeset store. It's implemented as a permanent ring-buffer file that is preallocated on disk when the node is initialized. File size can be controlled with the variable :variable:`gcache.size`. If this value is bigger, more writesets are cached and chances are better that the re-joining node will get |IST| instead of |SST|. Filename can be changed with the :variable:`gcache.name` variable.
   
 * :file:`grastate.dat`
-   This file contains the Galera state information.
+   This file contains the Galera state information. 
+   
+   * ``version`` - grastate version
+   * ``uuid`` - a unique identifier for the state and the sequence of changes it undergoes
+   * ``seqno`` - Ordinal Sequence Number, a 64-bit signed integer used to denote the position of the change in the sequence. ``seqno`` is ``0`` when no writesets have been generated or applied on that node, i.e., not applied/generated across the lifetime of a :file:`grastate` file. ``-1`` is a special value for the ``seqno`` that is kept in the :file:`grastate.dat` while the server is running to allow Galera to distinguish between a clean and an unclean shutdown. Upon a clean shutdown, the correct ``seqno`` value is written to the file. So, when the server is brought back up, if the value is still ``-1`` , this means that the server did not shut down cleanly. If the value is greater than ``0``, this means that the shutdown was clean. ``-1`` is then written again to the file in order to allow the server to correctly detect if the next shutdown was clean in the same manner.
+   * ``cert_index`` - cert index restore through grastate is not implemented yet  
 
-   Example of this file looks like this: ::
+   Examples of this file look like this: 
   
+   In case server node has this state when not running it means that that node crashed during the transaction processing. :: 
+
     # GALERA saved state
     version: 2.1
     uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+    seqno:   -1
+    cert_index:
+
+   In case server node has this state when not running it means that the node was gracefully shut down. :: 
+
+    # GALERA saved state
+    version: 2.1
+    uuid:    1917033b-7081-11e2-0800-707f5d3b106b
+    seqno:   5192193423942
+    cert_index:
+
+   In case server node has this state when not running it means that the node crashed during the DDL. ::
+
+    # GALERA saved state
+    version: 2.1
+    uuid:    00000000-0000-0000-0000-000000000000
     seqno:   -1
     cert_index:
 
