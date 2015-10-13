@@ -126,13 +126,14 @@ This variable controls whether the node participates in Flow Control. Setting th
 .. variable:: wsrep_dirty_reads
 
    :version 5.6.24-25.11: Variable introduced
+   :version 5.6.26-25.12: Variable now has GLOBAL scope as well
    :cli: Yes
    :conf: Yes
-   :scope: Session
+   :scope: Session/Global
    :dyn: Yes
    :default: OFF
 
-This variable is boolean and is OFF by default. When set to ON, a Percona XtraDB Cluster node accepts queries that only read, but not modify data even if the node is in the non-PRIM state 
+This variable is boolean and is ``OFF`` by default. When set to ``ON``, a |Percona XtraDB Cluster| node accepts queries that only read, but not modify data even if the node is in the non-PRIM state 
 
 .. variable:: wsrep_drupal_282555_workaround
 
